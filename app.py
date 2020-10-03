@@ -1,11 +1,3 @@
-import pymysql
-
-class app():
-    def __init__:
-        etc=2
-
-def main():
-    print('placeholder')
-
-if __name__ == '__main__':
-    main()
+import setup
+setup.create_database()
+setup.create_tables()
