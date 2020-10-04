@@ -1,5 +1,5 @@
 import setup
-from dB import cursor
+import pymysql 
 
 def main():
     setup.create_database()

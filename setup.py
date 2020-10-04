@@ -5,31 +5,19 @@ from dB import cursor
 DB_NAME = 'ctf_competition'
 TABLES = {}
 
-TABLES['coder'] = (
-    "CREATE TABLE `coder` ("
-    "`Username` varchar(50) NOT NULL,"
-    "`Team_ID` int NOT NULL,"
-    "`First` varchar(15) NOT NULL,"
-    "`Last` varchar(15) NOT NULL,"
-    "`Captain_Username` varchar(50) NOT NULL,"
-    "`Day` int(2) NOT NULL,"
-    "`Month` int(2) NOT NULL,"
-    "`Year` int(4) NOT NULL,"
-    "`Age` int(2) NOT NULL,"
-    "PRIMARY KEY (`Username`),"
-    "FOREIGN KEY (`Team_ID`) REFERENCES team(Team_ID)"
+TABLES['region'] = (
+    "DROP TABLE IF EXISTS `REGION`,"
+    "`RID` int(3) NOT NULL AUTO_INCREMENT,"
+    "`Rname` varchar(50) NOT NULL,"
+    "PRIMARY KEY (`RID`)"
     ") ENGINE=InnoDB"
 )
 
 TABLES['team'] = (
-    "CREATE TABLE `team` ("
-    "`Team_ID` int NOT NULL AUTO_INCREMENT,"
-    "`Name` varchar(50) NOT NULL,"
-    "`Region_ID` int NOT NULL,"
-    "`Coack_ID` int NOT NULL,"
-    "PRIMARY KEY (`Team_ID`)"
-    ") ENGINE=InnoDB"
+    
 )
+
+TABLES['']
 
 def create_database():
     cursor.execute("CREATE DATABASE IF NOT EXISTS {} DEFAULT CHARACTER SET 'utf8'".format(DB_NAME))
