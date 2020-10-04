@@ -7,7 +7,7 @@ TABLES = {}
 
 TABLES['region'] = (
     "CREATE TABLE `region` ("
-    "`Region_ID` int(3) NOT NULL AUTO_INCREMENT,"
+    "`Region_ID` int(3) NOT NULL,"
     "`Rname` varchar(50) NOT NULL,"
     "UNIQUE (`RName`),"
     "PRIMARY KEY (`Region_ID`)"
@@ -16,7 +16,7 @@ TABLES['region'] = (
 
 TABLES['team'] = (
     "CREATE TABLE `team` ("
-    "`Team_ID` int(3) NOT NULL AUTO_INCREMENT,"
+    "`Team_ID` int(3) NOT NULL,"
     "`TeamName` varchar(50) NOT NULL,"
     "`Coach` varchar(50),"
     "`Region_ID` int(3) NOT NULL,"
@@ -28,10 +28,25 @@ TABLES['team'] = (
 
 TABLES['venue'] = (
     "CREATE TABLE `venue` ("
-    "`Venue_ID` int(3) NOT NULL AUTO_INCREMENT,"
+    "`Venue_ID` int(3) NOT NULL,"
     "`Venue` varchar(20) NOT NULL,"
     "UNIQUE (`Venue`),"
     "PRIMARY KEY (`Venue_ID`)"
+    ")ENGINE=InnoDB"
+)
+
+TABLES['match'] = (
+    "CREATE TABLE `match` ("
+    "`TID1` int(3) NOT NULL,"
+    "`TID2` int(3) NOT NULL"
+    "`WonBy` int(3),"
+    "`MVP` int(3),"
+    "`Day` int(2) NOT NULL,"
+    "`Venue_ID` int(3) NOT NULL,"
+    "PRIMARY KEY (`TID1`,`TID2`,`Day`),"
+    "FOREIGN KEY (`TID1`) REFERENCES `team` (`Team_ID`) ON DELETE CASCADE,"
+    "FOREIGN KEY (`TID2`) REFERENCES `team` (`Team_ID`) ON DELETE CASCADE,"
+    "FOREIGN KEY (`Venue_ID`) REFERENCES `venue` (`Venue_ID`) ON DELETE CASCADE"
     ")ENGINE=InnoDB"
 )
 
