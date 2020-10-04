@@ -66,7 +66,24 @@ TABLES['player_type'] = (
     "`Player_ID` int(3) NOT NULL,"
     "`Type` varchar(10) NOT NULL,"
     "PRIMARY KEY (`Player_ID`, `Type`),"
-    "CHECK (Type = 'attacker' OR Type = 'defender'),"
+    "CHECK (Type = 'Attacker' OR Type = 'Defender'),"
+    "FOREIGN KEY (`Player_ID`) REFERENCES `player` (`Player_ID`) ON DELETE CASCADE"
+    ")ENGINE=InnoDB"
+)
+
+TABLES['battle'] = (
+    "CREATE TABLE `batlle` ("
+    "`TID1` int(3) NOT NULL,"
+    "`TID2` int(3) NOT NULL,"
+    "`Team_ID` int(3) NOT NULL,"
+    "`Venue_ID` int(3) NOT NULL,"
+    "`Player_ID` int(3) NOT NULL,"
+    "PRIMARY KEY (`TID1`, `TID2`, `Player_ID`),"
+    "CHECK (Team_ID = TID1 OR Team_ID = TID2),"
+    "FOREIGN KEY (`TID1`) REFERENCES `team` (`Team_ID`) ON DELETE CASCADE,"
+    "FOREIGN KEY (`TID2`) REFERENCES `team` (`Team_ID`) ON DELETE CASCADE,"
+    "FOREIGN KEY (`Team_ID`) REFERENCES `team` (`Team_ID`) ON DELETE CASCADE,"
+    "FOREIGN KEY (`Venue_ID`) REFERENCES `venue` (`Venue_ID`) ON DELETE CASCADE,"
     "FOREIGN KEY (`Player_ID`) REFERENCES `player` (`Player_ID`) ON DELETE CASCADE"
     ")ENGINE=InnoDB"
 )
