@@ -7,9 +7,10 @@ TABLES = {}
 
 TABLES['region'] = (
     "CREATE TABLE `region` ("
-    "`RID` int(3) NOT NULL AUTO_INCREMENT,"
+    "`Region_ID` int(3) NOT NULL AUTO_INCREMENT,"
     "`Rname` varchar(50) NOT NULL,"
-    "PRIMARY KEY (`RID`)"
+    "UNIQUE (`RName`),"
+    "PRIMARY KEY (`Region_ID`)"
     ") ENGINE=InnoDB"
 )
 
@@ -17,14 +18,20 @@ TABLES['team'] = (
     "CREATE TABLE `team` ("
     "`TeamName` varchar(50) NOT NULL,"
     "`Coach` varchar(50),"
-    "`RID` int(3) NOT NULL,"
+    "`Region_ID` int(3) NOT NULL,"
     "PRIMARY KEY (`TeamName`),"
-    "UNIQUE (`Coach`),"
-    "FOREIGN KEY (`RID`) REFERENCES `region`(`RID`) ON DELETE CASCADE"
+    "FOREIGN KEY (`Region_ID`) REFERENCES `region`(`Region_ID`) ON DELETE CASCADE"
     ")ENGINE=InnoDB"
 )
 
-
+TABLES['venue'] = (
+    "CREATE TABLE `venue` ("
+    "`Venue_ID` int(3) NOT NULL AUTO_INCREMENT,"
+    "`Venue` varchar(20) NOT NULL,"
+    "UNIQUE (`Venue`),"
+    "PRIMARY KEY (`Venue_ID`)"
+    ")ENGINE=InnoDB"
+)
 
 def create_database():
     cursor.execute("CREATE DATABASE IF NOT EXISTS {} DEFAULT CHARACTER SET 'utf8'".format(DB_NAME))
