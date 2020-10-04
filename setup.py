@@ -16,7 +16,18 @@ TABLES['coder'] = (
     "`Month` int(2) NOT NULL,"
     "`Year` int(4) NOT NULL,"
     "`Age` int(2) NOT NULL,"
-    "PRIMARY KEY (`Username`)"
+    "PRIMARY KEY (`Username`),"
+    "FOREIGN KEY (`Team_ID`) REFERENCES team(Team_ID)"
+    ") ENGINE=InnoDB"
+)
+
+TABLES['team'] = (
+    "CREATE TABLE `team` ("
+    "`Team_ID` int NOT NULL AUTO_INCREMENT,"
+    "`Name` varchar(50) NOT NULL,"
+    "`Region_ID` int NOT NULL,"
+    "`Coack_ID` int NOT NULL,"
+    "PRIMARY KEY (`Team_ID`)"
     ") ENGINE=InnoDB"
 )
 
