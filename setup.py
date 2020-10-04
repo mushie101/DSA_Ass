@@ -38,7 +38,7 @@ TABLES['venue'] = (
 TABLES['match'] = (
     "CREATE TABLE `match` ("
     "`TID1` int(3) NOT NULL,"
-    "`TID2` int(3) NOT NULL"
+    "`TID2` int(3) NOT NULL,"
     "`WonBy` int(3),"
     "`MVP` int(3),"
     "`Day` int(2) NOT NULL,"
@@ -47,6 +47,27 @@ TABLES['match'] = (
     "FOREIGN KEY (`TID1`) REFERENCES `team` (`Team_ID`) ON DELETE CASCADE,"
     "FOREIGN KEY (`TID2`) REFERENCES `team` (`Team_ID`) ON DELETE CASCADE,"
     "FOREIGN KEY (`Venue_ID`) REFERENCES `venue` (`Venue_ID`) ON DELETE CASCADE"
+    ")ENGINE=InnoDB"
+)
+
+TABLES['player'] = (
+    "CREATE TABLE `player` ("
+    "`Player_ID` int(3) NOT NULL,"
+    "`Username` varchar(20) NOT NULL,"
+    "`Age` int(2) NOT NULL,"
+    "`Team_ID` int(3) NOT NULL,"
+    "PRIMARY KEY (`Player_ID`),"
+    "FOREIGN KEY (`Team_ID`) REFERENCES `team` (`Team_ID`) ON DELETE CASCADE"
+    ")ENGINE=InnoDB"
+)
+
+TABLES['player_type'] = (
+    "CREATE TABLE `player_type`("
+    "`Player_ID` int(3) NOT NULL,"
+    "`Type` varchar(10) NOT NULL,"
+    "PRIMARY KEY (`Player_ID`, `Type`),"
+    "CHECK (Type = 'attacker' OR Type = 'defender'),"
+    "FOREIGN KEY (`Player_ID`) REFERENCES `player` (`Player_ID`) ON DELETE CASCADE"
     ")ENGINE=InnoDB"
 )
 
