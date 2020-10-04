@@ -6,7 +6,7 @@ DB_NAME = 'ctf_competition'
 TABLES = {}
 
 TABLES['region'] = (
-    "DROP TABLE IF EXISTS `REGION`,"
+    "CREATE TABLE `region` ("
     "`RID` int(3) NOT NULL AUTO_INCREMENT,"
     "`Rname` varchar(50) NOT NULL,"
     "PRIMARY KEY (`RID`)"
@@ -14,10 +14,17 @@ TABLES['region'] = (
 )
 
 TABLES['team'] = (
-    
+    "CREATE TABLE `team` ("
+    "`TeamName` varchar(50) NOT NULL,"
+    "`Coach` varchar(50),"
+    "`RID` int(3) NOT NULL,"
+    "PRIMARY KEY (`TeamName`),"
+    "UNIQUE (`Coach`),"
+    "FOREIGN KEY (`RID`) REFERENCES `region`(`RID`) ON DELETE CASCADE"
+    ")ENGINE=InnoDB"
 )
 
-TABLES['']
+
 
 def create_database():
     cursor.execute("CREATE DATABASE IF NOT EXISTS {} DEFAULT CHARACTER SET 'utf8'".format(DB_NAME))
