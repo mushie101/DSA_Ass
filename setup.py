@@ -16,10 +16,12 @@ TABLES['region'] = (
 
 TABLES['team'] = (
     "CREATE TABLE `team` ("
+    "`Team_ID` int(3) NOT NULL AUTO_INCREMENT,"
     "`TeamName` varchar(50) NOT NULL,"
     "`Coach` varchar(50),"
     "`Region_ID` int(3) NOT NULL,"
-    "PRIMARY KEY (`TeamName`),"
+    "UNIQUE (`TeamName`),"
+    "PRIMARY KEY (`Team_ID`),"
     "FOREIGN KEY (`Region_ID`) REFERENCES `region`(`Region_ID`) ON DELETE CASCADE"
     ")ENGINE=InnoDB"
 )
