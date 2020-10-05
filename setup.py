@@ -243,6 +243,24 @@ def dump_data():
         print('-->Player type data has been dumped!')
     except:
         print('-->Player type dump data already exists!')
-
+    # ======================= Battle Data Dump =======================
+    try:
+        sql = "INSERT INTO `battle` (TID1,TID2,Team_ID,Venue_ID,PLayer_ID) VALUES (%s,%s,%s,%s,%s)"
+        val = [
+            ("110", "120", "110", "68", "111"),
+            ("110", "120", "110", "68", "112"),
+            ("110", "120", "110", "68", "113"),
+            ("110", "120", "110", "68", "114"),
+            ("110", "120", "120", "68", "121"),
+            ("110", "120", "120", "68", "122"),
+            ("130", "150", "130", "69", "131"),
+            ("130", "150", "130", "69", "132"),
+            ("130", "150", "150", "69", "151"),
+            ("130", "150", "150", "69", "152")
+        ]
+        cursor.executemany(sql,val)
+        print('-->Battle data has been dumped!')
+    except:
+        print('-->Battle dump data already exists!')
 
     db.commit()
