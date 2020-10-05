@@ -166,5 +166,18 @@ def dump_data():
     except:
         print('-->Team dump data already exists!')
     # ======================= Venue Data Dump ======================= 
-    
+    try:
+        sql = "INSERT INTO `venue` (Venue_ID, Venue) VALUES (%s,%s)"
+        val = [
+            ("68","Gachibowli Stadium"),
+            ("69","Lords Stadium"),
+            ("70","IEM Katowice"),
+            ("20", "IEM Sydney"),
+            ("21", "Buckingham Palace")
+        ]
+        cursor.executemany(sql,val)
+        print('-->Venue data has been dumped!')
+    except:
+        print('-->Venue dump data already exists!')
+
     db.commit()
