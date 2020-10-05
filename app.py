@@ -1,5 +1,6 @@
 import setup
-import pymysql 
+from dB import cursor
+import subprocess as sp
 
 def main():
     setup.create_database()

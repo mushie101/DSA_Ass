@@ -88,6 +88,20 @@ TABLES['battle'] = (
     ")ENGINE=InnoDB"
 )
 
+TABLES['defender'] = (
+    "CREATE TABLE `defender` ("
+    "`Player_ID` int(3) NOT NULL,"
+    "`Battles_Played` int(3) NOT NULL,"
+    "`Points_Given` int(4) NOT NULL,"
+    "`Traps_Triggered` int(4) NOT NULL,"
+    "`Avg_Defence` float(6) NOT NULL,"
+    "`Best_Ratio` varchar(15) NOT NULL,"
+    "PRIMARY KEY (`Player_ID`),"
+    "FOREIGN KEY (`Player_ID`) REFERENCES `player` (`Player_ID`) ON DELETE CASCADE,"
+    "CHECK (Best_Ratio LIKE '[0-9]-[0-9][0-9]')"
+    ")ENGINE=InnoDB"
+)
+
 def create_database():
     cursor.execute("CREATE DATABASE IF NOT EXISTS {} DEFAULT CHARACTER SET 'utf8'".format(DB_NAME))
     print("connection to DB {} successful!".format(DB_NAME))
