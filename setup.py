@@ -3,7 +3,7 @@ import time
 from mysql.connector import errorcode
 from dB import cursor, db
 
-DB_NAME = 'ctf_competition'
+DB_NAME = 'ctf_'
 TABLES = {}
 
 TABLES['region'] = (
@@ -152,6 +152,19 @@ def dump_data():
     except:
         print('-->Region dump data already exists!')
     # ======================= Team Data Dump ======================= 
-
+    try:
+        sql = "INSERT INTO `team` (Team_ID, TeamName, Coach, Region_ID) VALUES (%s,%s,%s,%s)"
+        val = [
+            ("110","Virtus Pro","Sream","1"),
+            ("120","Cloud9","Shroud","2"),
+            ("130","Australis","J0hn","3"),
+            ("140","ENCE","DeviCe","4"),
+            ("150","NaVi","kennyS","5")
+        ]
+        cursor.executemany(sql,val)
+        print('-->Team data has been dumped!')
+    except:
+        print('-->Team dump data already exists!')
+    # ======================= Venue Data Dump ======================= 
 
     db.commit()
