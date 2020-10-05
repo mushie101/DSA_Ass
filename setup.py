@@ -3,7 +3,7 @@ import time
 from mysql.connector import errorcode
 from dB import cursor, db
 
-DB_NAME = 'ctf'
+DB_NAME = '_ctf_comp_'
 TABLES = {}
 
 TABLES['region'] = (
@@ -99,15 +99,14 @@ TABLES['defender'] = (
     "`Avg_Defence` float(6) NOT NULL,"
     "`Best_Ratio` varchar(15) NOT NULL,"
     "PRIMARY KEY (`Player_ID`),"
-    "FOREIGN KEY (`Player_ID`) REFERENCES `player` (`Player_ID`) ON DELETE CASCADE,"
-    "CHECK (Best_Ratio LIKE '[0-9]-[0-9][0-9]')"
+    "FOREIGN KEY (`Player_ID`) REFERENCES `player` (`Player_ID`) ON DELETE CASCADE"
     ")ENGINE=InnoDB"
 )
 
 TABLES['attacker'] = (
     "CREATE TABLE `attacker` ("
     "`Player_ID` int(3) NOT NULL,"
-    "`Points` int(4) NOT NULL,"
+    "`Points` int(5) NOT NULL,"
     "`Battles_Played` int(3) NOT NULL,"
     "`Battles_No_Deaths` int(3) NOT NULL,"
     "`Avg_Attack` float(6) NOT NULL,"
@@ -262,5 +261,21 @@ def dump_data():
         print('-->Battle data has been dumped!')
     except:
         print('-->Battle dump data already exists!')
+    # ======================= Defender Data Dump =======================
+    try:
+        sql = "INSERT INTO `defender` (Player_ID,Battles_Played,Points_Given,Traps_Triggered,Avg_Defence,Best_Ratio) VALUES (%s,%s,%s,%s,%s,%s)"
+        val = [
+            ("111", "404", "1324", "342", "4",'4/23'),
+            ("112", "4", "25", "12", "2",'9/20'),
+            ("122", "234", "2353", "12", "196",'2/45'),
+            ("131", "87", "456", "10", "46",'3/83'),
+            ("132", "123", "2082", "243", "8",'5/93'),
+            ("141", "27", "1324", "45", "29",'1/35')
+        ]
+        cursor.executemany(sql,val)
+        print('-->Defender data has been dumped!')
+    except:
+        print('-->Defender dump data already exists!')
+    # ======================= Attacker Data Dump =======================
 
     db.commit()
