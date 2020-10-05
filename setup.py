@@ -1,4 +1,5 @@
 import mysql.connector
+import time
 from mysql.connector import errorcode
 from dB import cursor
 
@@ -132,3 +133,8 @@ def create_tables():
                 print(" ; table {} exists".format(table_name))
             else:
                 print(err.msg)
+        time.sleep(1)
+
+def dump_data():
+    cursor.execute("USE {}".format(DB_NAME))
+    
