@@ -197,6 +197,26 @@ def dump_data():
         print('-->Match data has been dumped!')
     except:
         print('-->Match dump data already exists!')
-
+    # ======================= Player Data Dump =======================
+    try:
+        sql = "INSERT INTO `player` (PLayer_ID, Username, Age, Team_ID) VALUES (%s,%s,%s,%s)"
+        val = [
+            ("111","Mu5H1E","21","110"),
+            ("112","Critikal","19","110"),
+            ("113","Champ12134","24","110"),
+            ("114","Negative","16","110"),
+            ("121","Peter","30","120"),
+            ("122","HarryPotter","20","120"),
+            ("131","Vijay","21","130"),
+            ("132","Siddarth","20","130"),
+            ("141","Saud","29","140"),
+            ("142","Sharaf","27","140"),
+            ("151","Zakariya","21","150"),
+            ("152","Razzak","20","150")
+        ]
+        cursor.executemany(sql,val)
+        print('-->Player data has been dumped!')
+    except:
+        print('-->Player dump data already exists!')
 
     db.commit()
