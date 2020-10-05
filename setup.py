@@ -1,7 +1,7 @@
 import mysql.connector
 import time
 from mysql.connector import errorcode
-from dB import cursor
+from dB import cursor, db
 
 DB_NAME = 'ctf_competition'
 TABLES = {}
@@ -73,7 +73,7 @@ TABLES['player_type'] = (
 )
 
 TABLES['battle'] = (
-    "CREATE TABLE `batlle` ("
+    "CREATE TABLE `battle` ("
     "`TID1` int(3) NOT NULL,"
     "`TID2` int(3) NOT NULL,"
     "`Team_ID` int(3) NOT NULL,"
@@ -137,4 +137,21 @@ def create_tables():
 
 def dump_data():
     cursor.execute("USE {}".format(DB_NAME))
-    
+    # ======================= Region Data Dump ======================= 
+    try:
+        sql = "INSERT INTO `region` (Region_ID, RName) VALUES (%s,%s)"
+        val = [
+            ( "1","South East Asia"),
+            ("2","North America"),
+            ("3","South America"),
+            ("4","Australia"),
+            ("5","Europe")
+            ]
+        cursor.executemany(sql,val)
+        print('-->Region data has been dumped')
+    except:
+        print('-->Region dump data already exists!')
+    # ======================= Team Data Dump ======================= 
+
+
+    db.commit()
