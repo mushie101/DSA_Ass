@@ -166,5 +166,5 @@ def dump_data():
     except:
         print('-->Team dump data already exists!')
     # ======================= Venue Data Dump ======================= 
-
+    
     db.commit()
