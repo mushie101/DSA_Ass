@@ -3,7 +3,7 @@ import time
 from mysql.connector import errorcode
 from dB import cursor, db
 
-DB_NAME = 'ctf_'
+DB_NAME = 'ctf'
 TABLES = {}
 
 TABLES['region'] = (
@@ -57,6 +57,7 @@ TABLES['player'] = (
     "`Username` varchar(20) NOT NULL,"
     "`Age` int(2) NOT NULL,"
     "`Team_ID` int(3) NOT NULL,"
+    "`Captain_ID` int(3) NOT NULL,"
     "PRIMARY KEY (`Player_ID`),"
     "FOREIGN KEY (`Team_ID`) REFERENCES `team` (`Team_ID`) ON DELETE CASCADE"
     ")ENGINE=InnoDB"
@@ -199,24 +200,49 @@ def dump_data():
         print('-->Match dump data already exists!')
     # ======================= Player Data Dump =======================
     try:
-        sql = "INSERT INTO `player` (PLayer_ID, Username, Age, Team_ID) VALUES (%s,%s,%s,%s)"
+        sql = "INSERT INTO `player` (PLayer_ID, Username, Age, Team_ID, Captain_ID) VALUES (%s,%s,%s,%s,%s)"
         val = [
-            ("111","Mu5H1E","21","110"),
-            ("112","Critikal","19","110"),
-            ("113","Champ12134","24","110"),
-            ("114","Negative","16","110"),
-            ("121","Peter","30","120"),
-            ("122","HarryPotter","20","120"),
-            ("131","Vijay","21","130"),
-            ("132","Siddarth","20","130"),
-            ("141","Saud","29","140"),
-            ("142","Sharaf","27","140"),
-            ("151","Zakariya","21","150"),
-            ("152","Razzak","20","150")
+            ("111","Mu5H1E","21","110","111"),
+            ("112","Critikal","19","110","111"),
+            ("113","Champ12134","24","110","111"),
+            ("114","Negative","16","110","111"),
+            ("121","Peter","30","120","121"),
+            ("122","HarryPotter","20","120","121"),
+            ("131","Vijay","21","130","131"),
+            ("132","Siddarth","20","130","131"),
+            ("141","Saud","29","140","142"),
+            ("142","Sharaf","27","140","142"),
+            ("151","Zakariya","21","150","151"),
+            ("152","Razzak","20","150","151")
         ]
         cursor.executemany(sql,val)
         print('-->Player data has been dumped!')
     except:
         print('-->Player dump data already exists!')
+    # ======================= Player Type Data Dump =======================
+    try:
+        sql = "INSERT INTO `player_type` (Player_ID,Type) VALUES (%s,%s)"
+        val = [
+            ("111","Attacker"),
+            ("111","Defender"),
+            ("112","Attacker"),
+            ("112","Defender"),
+            ("113","Attacker"),
+            ("114","Attacker"),
+            ("121","Attacker"),
+            ("122","Attacker"),
+            ("122","Defender"),
+            ("131","Attacker"),
+            ("131","Defender"),
+            ("132","Defender"),
+            ("141","Attacker"),
+            ("141","Defender"),
+            ("142","Attacker")
+        ]
+        cursor.executemany(sql,val)
+        print('-->Player type data has been dumped!')
+    except:
+        print('-->Player type dump data already exists!')
+
 
     db.commit()
