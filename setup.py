@@ -179,5 +179,24 @@ def dump_data():
         print('-->Venue data has been dumped!')
     except:
         print('-->Venue dump data already exists!')
+    # ======================= Match Data Dump =======================
+    try:
+        sql = "INSERT INTO `match` (TID1, TID2, WonBy, MVP, Day, Venue_ID) VALUES (%s,%s,%s,%s,%s,%s)"
+        val = [
+            ("110","120","110","111","1","68"),
+            ("130","150","150","152","2","70"),
+            ("120","140","120","121","2","69"),
+            ("110","130","110","112","3","68"),
+            ("140","150","140","141","3","21"),
+            ("140","130","130","131","4","20"),
+            ("150","120", None, None,"4","69"),
+            ("140","150", None, None,"5","69"),
+            ("130","110", None, None,"6","68")
+        ]
+        cursor.executemany(sql,val)
+        print('-->Match data has been dumped!')
+    except:
+        print('-->Match dump data already exists!')
+
 
     db.commit()
