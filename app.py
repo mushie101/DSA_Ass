@@ -2,9 +2,22 @@ import setup
 import time
 import os
 import sys
-import logging
 from dB import cursor
 import subprocess as sp
+
+def generate_report(inp):
+    cursor.execute("USE _ctf_c")
+    if inp == 6:
+        main_menu()
+    elif inp == 1:
+        sp.call('clear',shell=True)
+        print('======================= Report =======================',end="\n\n")
+        sql = "SELECT COUNT(M.WonBy) \"COUNT\", T.Team_ID FROM `match` as M, `team` as T WHERE WonBy IS NOT NULL AND T.Team_ID = M.WonBy GROUP BY T.Team_ID"
+        print("")
+        cursor.execute(sql)
+        result=cursor.fetchall()
+        print(result)
+
 
 def report_menu():
     sp.call('clear',shell=True)
@@ -17,7 +30,7 @@ def report_menu():
     print('6)--> Back to Main Menu')
     print('-----------------------------------------------------------')
     inp = int(input("Enter Option:- "))
-    #generate_report(inp)
+    generate_report(inp)
 
 def logout():
     sp.call('clear',shell=True)
@@ -26,11 +39,11 @@ def logout():
 
 def main_menu_redirection(inp):
     if inp == 1:
-        insertion_menu()
+        insertion()
     elif inp == 2:
-        updation_menu()
+        updation()
     elif inp == 3:
-        deletion_menu()
+        deletion()
     elif inp == 4:
         report_menu()
     elif inp == 5:
