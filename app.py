@@ -18,6 +18,8 @@ def generate_report(inp):
         cursor.execute(sql)
         result=cursor.fetchall()
         print(result)
+        time.sleep(3)
+        main_menu()
     
     elif inp==2:
         print('======================= Report =======================',end="\n\n")
@@ -27,6 +29,8 @@ def generate_report(inp):
         cursor.execute(sql)
         result=cursor.fetchall()
         print(result)
+        time.sleep(3)
+        main_menu()
     
     elif inp==3:
         print('======================= Report =======================',end="\n\n") 
@@ -35,7 +39,9 @@ def generate_report(inp):
         print("")
         cursor.execute(sql)
         result=cursor.fetchall()
-        print(result)           
+        print(result)
+        time.sleep(3)
+        main_menu()           
 
     elif inp==4:
         print('======================= Report =======================',end="\n\n") 
@@ -44,7 +50,9 @@ def generate_report(inp):
         print("")
         cursor.execute(sql)
         result=cursor.fetchall()
-        print(result)        
+        print(result)  
+        time.sleep(3)
+        main_menu()      
 
     elif inp==5:
         print('======================= Report =======================',end="\n\n") 
@@ -53,7 +61,12 @@ def generate_report(inp):
         print("")
         cursor.execute(sql)
         result=cursor.fetchall()
-        print(result)   
+        print(result)
+        time.sleep(3)
+        main_menu()
+
+    else:
+        report_menu()   
 
 
 
