@@ -120,6 +120,26 @@ def updation(inp):
         result=cursor.fetchall()
         print(result,end="\n\n")       
 
+    elif inp==4:
+        print('======================= Updation =======================',end="\n\n")
+        print("Players Table -> ",end="\n\n")
+        sql = "SELECT * FROM player;"
+        cursor.execute(sql)
+        result=cursor.fetchall()
+        print(result,end="\n\n")
+
+        Player_ID=int(input("Enter the ID of the player who has been deceased > "))
+
+        sql = "UPDATE player SET Age = '%d' WHERE Player_ID = '%d'" %(-1, Player_ID)
+        cursor.execute(sql)
+        db.commit()
+
+        print("Updated players Table -> ",end="\n\n")
+        sql = "SELECT * FROM player;"
+        cursor.execute(sql)
+        result=cursor.fetchall()
+        print(result,end="\n\n")
+
 def updation_menu():
     cursor.execute("USE _ctf_c")
     sp.call('clear',shell=True)
