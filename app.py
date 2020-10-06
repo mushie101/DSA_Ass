@@ -37,6 +37,16 @@ def generate_report(inp):
         result=cursor.fetchall()
         print(result)           
 
+    elif inp==4:
+        print('======================= Report =======================',end="\n\n") 
+        print('Highest Individual Scorer of Competition [Player ID, Username]')
+        sql = "SELECT Player_ID, Username FROM player WHERE Player_ID=(SELECT Player_ID FROM attacker WHERE Highscore = (SELECT MAX(Highscore) FROM attacker))"  
+        print("")
+        cursor.execute(sql)
+        result=cursor.fetchall()
+        print(result)           
+
+
 
 def report_menu():
     sp.call('clear',shell=True)
