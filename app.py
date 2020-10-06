@@ -91,6 +91,35 @@ def updation(inp):
         result=cursor.fetchall()
         print(result)      
 
+    elif inp==3:
+        print('======================= Updation =======================',end="\n\n")
+        print("Venue Table -> ",end="\n\n")
+        sql = "SELECT * FROM venue;"
+        cursor.execute(sql)
+        result=cursor.fetchall()
+        print(result,end="\n\n")
+
+        print("Matches Table -> ",end="\n\n")
+        sql = "SELECT * FROM `match`;"
+        cursor.execute(sql)
+        result=cursor.fetchall()
+        print(result,end="\n\n")
+
+        Tid1 = int(input("Enter the first team's ID > "))
+        Tid2 = int(input("Enter the second teams ID > "))
+        Day = int(input("Enter the day of the Match > "))
+        Venue_ID = int(input("Enter the Venue ID where match is to be held instead > "))
+        
+        sql = "UPDATE `match` SET Venue_ID = '%d' WHERE Day = '%d' AND TID1 = '%d' AND TID2 = '%d'" %(Venue_ID, Day, Tid1, Tid2)
+        cursor.execute(sql)
+        db.commit()
+        
+        print("Updated Matches Table -> ",end="\n\n")
+        sql = "SELECT * FROM `match`;"
+        cursor.execute(sql)
+        result=cursor.fetchall()
+        print(result,end="\n\n")       
+
 def updation_menu():
     cursor.execute("USE _ctf_c")
     sp.call('clear',shell=True)
