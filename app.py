@@ -152,6 +152,49 @@ def insertion(inp):
         result=cursor.fetchall()
         print(result,end="\n\n")
 
+    elif inp==4:
+        print('======================= Insertion =======================',end="\n\n")
+        Player_ID=int(input("Enter the Player ID of the Defender who started Attacking > "))
+        
+        sql="INSERT INTO player_type VALUES('%d', 'Attacker')" %(Player_ID)
+        cursor.execute(sql)
+
+        sql="INSERT INTO attacker VALUES (%d,%d,%d,%d,%d,%d)" %(Player_ID,0,0,0,0,0)
+        cursor.execute(sql)
+        db.commit()
+
+        print('Updated Players Table -->',end="\n\n")
+        sql="SELECT * FROM player"
+        cursor.execute(sql)
+        result=cursor.fetchall()
+        print(result,end="\n\n")
+
+        print('Updated Player Type Table -->',end="\n\n")
+        sql="SELECT * FROM player_type"
+        cursor.execute(sql)
+        result=cursor.fetchall()
+        print(result,end="\n\n")
+
+        print('Updated Defenders Table -->',end="\n\n")
+        sql="SELECT * FROM attacker"
+        cursor.execute(sql)
+        result=cursor.fetchall()
+        print(result,end="\n\n")
+
+    elif inp==5:
+        print('======================= Insertion =======================',end="\n\n")
+        print("Enter the new Venue's details ->")
+        Venue_ID=int(input("Venue ID > "))
+        Venue_Name=input("Venue Name > ")
+        sql="INSERT INTO venue VALUES('%d','%s')" %(Venue_ID, Venue_Name)
+        cursor.execute(sql)
+        db.commit()
+        print('Updated Venues Table -->',end="\n\n")
+        sql="SELECT * FROM venue"
+        cursor.execute(sql)
+        result=cursor.fetchall()
+        print(result,end="\n\n")
+
     else:
         insertion_menu()
 
