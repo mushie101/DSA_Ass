@@ -195,6 +195,38 @@ def insertion(inp):
         result=cursor.fetchall()
         print(result,end="\n\n")
 
+    elif inp==6:
+        print('======================= Insertion =======================',end="\n\n")
+        print("Enter the details for the match for which the MVP is to be inserted ->")
+        Tid1=int(input("TeamID 1 > "))
+        Tid2=int(input("TeamID 2 > "))
+        Day=int(input("Day > "))
+        Mvp=int(input("Most Valuable Player > "))
+        sql="UPDATE `match` SET MVP='%d' WHERE ((TID1='%d' AND TID2='%d' AND Day='%d') OR (TID2='%d' AND TID1='%d' AND Day='%d'))"%(Mvp,Tid1,Tid2,Day,Tid1,Tid2,Day)
+        cursor.execute(sql)
+        db.commit()
+        print('Updated Matches Table -->',end="\n\n")
+        sql="SELECT * FROM `match`"
+        cursor.execute(sql)
+        result=cursor.fetchall()
+        print(result,end="\n\n")
+
+    elif inp==7:
+        print('======================= Insertion =======================',end="\n\n")
+        print("Enter the details for the match for which Won By is to be inserted ->")
+        Tid1=int(input("TeamID 1 > "))
+        Tid2=int(input("TeamID 2 > "))
+        Day=int(input("Day > "))
+        WonBy=int(input("Team ID of the winner > "))     
+        sql="UPDATE `match` SET WonBy='%d' WHERE ((TID1='%d' AND TID2='%d' AND Day='%d') OR (TID2='%d' AND TID1='%d' AND Day='%d'))"%(WonBy,Tid1,Tid2,Day,Tid1,Tid2,Day)
+        cursor.execute(sql)
+        db.commit()
+        print('Updated Matches Table -->',end="\n\n")
+        sql="SELECT * FROM `match`"
+        cursor.execute(sql)
+        result=cursor.fetchall()
+        print(result,end="\n\n")   
+
     else:
         insertion_menu()
 
