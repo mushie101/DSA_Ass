@@ -140,6 +140,14 @@ def updation(inp):
         result=cursor.fetchall()
         print(result,end="\n\n")
 
+    else:
+        updation_menu()
+
+    inp = input("Enter any key to go back to the main menu> ")
+    main_menu() 
+    
+
+
 def updation_menu():
     cursor.execute("USE _ctf_c")
     sp.call('clear',shell=True)
