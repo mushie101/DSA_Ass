@@ -2,13 +2,39 @@ import setup
 import time
 import os
 import sys
-from dB import cursor
+from dB import cursor, db
 import subprocess as sp
 
-def deletion():
-    print('======================= Deletion =======================',end="\n\n")
+def deletion(inp):
+    if inp==1:
+        print('======================= Deletion =======================',end="\n\n")
+        sql = "SELECT * FROM venue;"
+        cursor.execute(sql)
+        result=cursor.fetchall()
+        print("The venue list -->",end="\n\n")
+        print(result,end="\n\n")
+        
+        sql = "SELECT * FROM `match`;"
+        cursor.execute(sql)
+        result=cursor.fetchall()
+        print("The match list -->",end="\n\n")
+        print(result,end="\n\n")
+        
+        Venue_ID_Demolish=int(input("enter the venue ID you want to delete > "))
+        Venue_ID_Replace=int(input("enter the venue ID of the replacement for the match > "))
+        sql = "UPDATE `match` SET Venue_ID = '%d' WHERE Venue_ID = '%d'" %(Venue_ID_Replace, Venue_ID_Demolish)       
+        cursor.execute(sql)
+        db.commit()
+        sql = "DELETE FROM venue WHERE (Venue_ID = '%d')" %(Venue_ID_Demolish)
+        cursor.execute(sql)
+        db.commit()
+        print('--> The venue has been succesfully deleted!')
     
+    else:
+        deletion_menu()
 
+    inp = input("Enter any key to go back to the main menu> ")
+    main_menu() 
 
 def deletion_menu():
     cursor.execute("USE _ctf_c")
