@@ -40,7 +40,7 @@ def updation(inp):
         cursor.execute(sql)
         db.commit()
 
-        sql = "UPDATE attacker SET Avg_Attack = '%d' WHERE Player_ID = '%d'" %(result[0][1]/(result[0][2]-result[0][3]) , Player_ID)
+        sql = "UPDATE attacker SET Avg_Attack = '%f' WHERE Player_ID = '%d'" %(float(float(result[0][1])/float(result[0][2]-result[0][3])) , Player_ID)
         cursor.execute(sql)
         db.commit()
 
@@ -54,6 +54,42 @@ def updation(inp):
         cursor.execute(sql)
         result=cursor.fetchall()
         print(result)
+
+    elif inp==2:
+        print('======================= Updation =======================',end="\n\n")
+        print("Defender Table -> ",end="\n\n")
+        sql = "SELECT * FROM defender;"
+        cursor.execute(sql)
+        result=cursor.fetchall()
+        print(result,end="\n\n")
+        Player_ID=int(input("Enter the ID of the defender who's data needs to be updated > "))
+        sql = "SELECT * FROM defender WHERE (Player_ID = %d)" %(Player_ID)
+        cursor.execute(sql)
+        result=cursor.fetchall()
+        points_given=int(input("Enter the number of points given by the defender > "))
+        Trap_Laid=int(input("Number of successful traps laid by the defender > "))
+        
+        sql = "UPDATE defender SET Battles_played = '%d' WHERE Player_ID = '%d'" %(result[0][1]+1, Player_ID)
+        cursor.execute(sql)
+        db.commit()
+ 
+        sql = "UPDATE defender SET Points_Given = '%d' WHERE Player_ID = '%d'" %(result[0][2]+points_given , Player_ID)
+        cursor.execute(sql)
+        db.commit()       
+
+        sql = "UPDATE defender SET Traps_Triggered = '%d' WHERE Player_ID = '%d'" %(result[0][3]+Trap_Laid , Player_ID)
+        cursor.execute(sql)
+        db.commit()
+
+        sql = "UPDATE defender SET Avg_Defence = '%f' WHERE Player_ID = '%d'" %(float(float(result[0][2])/float(result[0][1])) , Player_ID)
+        cursor.execute(sql)
+        db.commit() 
+
+        print('Updated Table -->',end="\n\n")
+        sql="SELECT * FROM defender"
+        cursor.execute(sql)
+        result=cursor.fetchall()
+        print(result)      
 
 def updation_menu():
     cursor.execute("USE _ctf_c")
