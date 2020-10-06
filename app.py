@@ -9,10 +9,20 @@ def generate_report(inp):
     cursor.execute("USE _ctf_c")
     if inp == 6:
         main_menu()
+    
     elif inp == 1:
-        sp.call('clear',shell=True)
         print('======================= Report =======================',end="\n\n")
+        print("Number of wins per team [wins, teamID]")
         sql = "SELECT COUNT(M.WonBy) \"COUNT\", T.Team_ID FROM `match` as M, `team` as T WHERE WonBy IS NOT NULL AND T.Team_ID = M.WonBy GROUP BY T.Team_ID"
+        print("")
+        cursor.execute(sql)
+        result=cursor.fetchall()
+        print(result)
+    
+    elif inp==2:
+        print('======================= Report =======================',end="\n\n")
+        print('Best Attacker of the competition [Player ID, Username]')
+        sql = "SELECT Player_ID, Username from player WHERE Player_ID = (SELECT Player_ID from attacker WHERE points = (SELECT MAX(Points) FROM attacker))"
         print("")
         cursor.execute(sql)
         result=cursor.fetchall()
@@ -23,8 +33,8 @@ def report_menu():
     sp.call('clear',shell=True)
     print('======================= Report Menu =======================')
     print('1)--> Number of wins for each team')
-    print('2)--> Best attacker of the tournament')
-    print('3)--> Best defender of the tournament')
+    print('2)--> Best attacker of the competition')
+    print('3)--> Best defender of the competition')
     print('4)--> Highest individual score of an attacker')
     print('5)--> Number of players who are both attackers and defenders')
     print('6)--> Back to Main Menu')
