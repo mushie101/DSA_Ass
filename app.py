@@ -5,6 +5,70 @@ import sys
 from dB import cursor, db
 import subprocess as sp
 
+def updation(inp):
+    if inp==5:
+        main_menu()
+
+    elif inp==1:
+        print('======================= Updation =======================',end="\n\n")
+        print("Attacker Table -> ",end="\n\n")
+        sql = "SELECT * FROM attacker;"
+        cursor.execute(sql)
+        result=cursor.fetchall()
+        print(result,end="\n\n")
+        Player_ID=int(input("Enter the ID of the attacker who's data needs to be updated > "))
+        sql = "SELECT * FROM attacker WHERE (Player_ID = %d)" %(Player_ID)
+        cursor.execute(sql)
+        result=cursor.fetchall()
+        points_gained=int(input("Enter the number of points gained by the attacker > "))
+        Trap_Triggered=int(input("Enter 0 if the attacker did not trigger any traps > "))
+        
+        if Trap_Triggered:
+            Battle_No_Deaths=0
+        else:
+            Battle_No_Deaths=1
+        
+        sql = "UPDATE attacker SET Battles_Played = %d WHERE Player_ID = %d" %(int(int(result[0][2])+1),Player_ID)
+        cursor.execute(sql)
+        db.commit()
+
+        sql = "UPDATE attacker SET Points = '%d' WHERE Player_ID = '%d'" %(result[0][1]+points_gained , Player_ID)
+        cursor.execute(sql)
+        db.commit()
+
+        sql = "UPDATE attacker SET Battles_No_Deaths = %d WHERE Player_ID = %d" %(result[0][3]+Battle_No_Deaths, Player_ID)
+        cursor.execute(sql)
+        db.commit()
+
+        sql = "UPDATE attacker SET Avg_Attack = '%d' WHERE Player_ID = '%d'" %(result[0][1]/(result[0][2]-result[0][3]) , Player_ID)
+        cursor.execute(sql)
+        db.commit()
+
+        if result[0][5] < points_gained:
+            sql = "UPDATE attacker SET Highscore = '%d' WHERE Player_ID = '%d'" %(points_gained, Player_ID)
+            cursor.execute(sql)
+            db.commit() 
+
+        print('Updated Table -->',end="\n\n")
+        sql="SELECT * FROM attacker"
+        cursor.execute(sql)
+        result=cursor.fetchall()
+        print(result)
+
+def updation_menu():
+    cursor.execute("USE _ctf_c")
+    sp.call('clear',shell=True)
+    print('======================= Updation Menu =======================')
+    print('1)--> Updating records of attacker after every match')
+    print('2)--> Updating records of defender after every match')
+    print('3)--> Updating venue if there is relocation')
+    print('4)--> Updating age of player to -1 if he dies')
+    print('5)--> Back to Main Menu')
+    print('-------------------------------------------------------------')
+    inp = int(input("Enter Option:- "))
+    updation(inp)
+
+
 def deletion(inp):
     if inp==1:
         print('======================= Deletion =======================',end="\n\n")
@@ -30,6 +94,9 @@ def deletion(inp):
         db.commit()
         print('--> The venue has been succesfully deleted!')
     
+    elif inp==2:
+        main_menu()
+
     else:
         deletion_menu()
 
@@ -41,6 +108,7 @@ def deletion_menu():
     sp.call('clear',shell=True)
     print('======================= Deletion Menu =======================')
     print('1)--> Demolition of a Venue')
+    print('2)--> Back to main menu')
     print('-------------------------------------------------------------')
     inp = int(input("Enter Option:- "))
     deletion(inp)
