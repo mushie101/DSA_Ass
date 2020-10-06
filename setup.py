@@ -3,7 +3,7 @@ import time
 from mysql.connector import errorcode
 from dB import cursor, db
 
-DB_NAME = '_ctf_c'
+DB_NAME = '_ctf_c_t'
 TABLES = {}
 
 TABLES['region'] = (
@@ -97,7 +97,6 @@ TABLES['defender'] = (
     "`Points_Given` int(4) NOT NULL,"
     "`Traps_Triggered` int(4) NOT NULL,"
     "`Avg_Defence` float(6) NOT NULL,"
-    "`Best_Ratio` varchar(15) NOT NULL,"
     "PRIMARY KEY (`Player_ID`),"
     "FOREIGN KEY (`Player_ID`) REFERENCES `player` (`Player_ID`) ON DELETE CASCADE"
     ")ENGINE=InnoDB"
@@ -262,14 +261,14 @@ def dump_data():
         print('-->Battle dump data already exists!')
     # ======================= Defender Data Dump =======================
     try:
-        sql = "INSERT INTO `defender` (Player_ID,Battles_Played,Points_Given,Traps_Triggered,Avg_Defence,Best_Ratio) VALUES (%s,%s,%s,%s,%s,%s)"
+        sql = "INSERT INTO `defender` (Player_ID,Battles_Played,Points_Given,Traps_Triggered,Avg_Defence) VALUES (%s,%s,%s,%s,%s)"
         val = [
-            ("111", "404", "1324", "342", "4",'4/23'),
-            ("112", "4", "25", "12", "2",'9/20'),
-            ("122", "234", "2353", "12", "196",'2/45'),
-            ("131", "87", "456", "10", "46",'3/83'),
-            ("132", "123", "2082", "243", "8",'5/93'),
-            ("141", "27", "1324", "45", "29",'1/35')
+            ("111", "404", "1324", "342", "4"),
+            ("112", "4", "25", "12", "2"),
+            ("122", "234", "2353", "12", "196"),
+            ("131", "87", "456", "10", "46"),
+            ("132", "123", "2082", "243", "8"),
+            ("141", "27", "1324", "45", "29")
         ]
         cursor.executemany(sql,val)
         print('-->Defender data has been dumped!')

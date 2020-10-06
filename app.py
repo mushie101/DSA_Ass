@@ -27,10 +27,10 @@ def insertion(inp):
         print("2)--> Defender")
         print("3)--> Both",end="\n\n")
         Type=int(input("Your Option > "))
+
         if Type==1:
             sql="INSERT INTO player_type VALUES (%d, 'Attacker')" %(new_player[0])
             cursor.execute(sql)
-            db.commit()
 
             sql="INSERT INTO attacker VALUES (%d,%d,%d,%d,%d,%d)" %(new_player[0],0,0,0,0,0)
             cursor.execute(sql)
@@ -48,6 +48,27 @@ def insertion(inp):
             result=cursor.fetchall()
             print(result,end="\n\n")       
 
+        elif Type==2:
+            sql="INSERT INTO player_type VALUES (%d, 'Defender')" %(new_player[0])
+            cursor.execute(sql)
+
+            sql="INSERT INTO defender VALUES (%d,%d,%d,%d,%d)" %(new_player[0],0,0,0,0)
+            cursor.execute(sql)
+            db.commit()     
+
+            print('Updated Players Table -->',end="\n\n")
+            sql="SELECT * FROM player"
+            cursor.execute(sql)
+            result=cursor.fetchall()
+            print(result,end="\n\n")  
+
+            print('Updated Defenders Table -->',end="\n\n")
+            sql="SELECT * FROM defender"
+            cursor.execute(sql)
+            result=cursor.fetchall()
+            print(result,end="\n\n")       
+
+
     else:
         insertion_menu()
 
@@ -56,7 +77,7 @@ def insertion(inp):
     
 
 def insertion_menu():
-    cursor.execute("USE _ctf_c")
+    cursor.execute("USE _ctf_c_t")
     sp.call('clear',shell=True)
     print('======================= Insertion Menu =======================')
     print('1)--> Insertion of a New Player into a Team')
@@ -215,7 +236,7 @@ def updation(inp):
 
 
 def updation_menu():
-    cursor.execute("USE _ctf_c")
+    cursor.execute("USE _ctf_c_t")
     sp.call('clear',shell=True)
     print('======================= Updation Menu =======================')
     print('1)--> Updating records of attacker after every match')
@@ -263,7 +284,7 @@ def deletion(inp):
     main_menu() 
 
 def deletion_menu():
-    cursor.execute("USE _ctf_c")
+    cursor.execute("USE _ctf_c_t")
     sp.call('clear',shell=True)
     print('======================= Deletion Menu =======================')
     print('1)--> Demolition of a Venue')
@@ -319,7 +340,7 @@ def generate_report(inp):
 
 
 def report_menu():
-    cursor.execute("USE _ctf_c")
+    cursor.execute("USE _ctf_c_t")
     sp.call('clear',shell=True)
     print('======================= Report Menu =======================')
     print('1)--> Number of wins for each team')
