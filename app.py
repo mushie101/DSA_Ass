@@ -44,7 +44,16 @@ def generate_report(inp):
         print("")
         cursor.execute(sql)
         result=cursor.fetchall()
-        print(result)           
+        print(result)        
+
+    elif inp==5:
+        print('======================= Report =======================',end="\n\n") 
+        print('Number of all rounders in the competition (both attackers and defenders)')
+        sql = "SELECT COUNT(*) FROM (SELECT PLayer_ID, COUNT(Player_ID) FROM player_type GROUP BY Player_ID HAVING COUNT(Player_ID)=2) A"  
+        print("")
+        cursor.execute(sql)
+        result=cursor.fetchall()
+        print(result)   
 
 
 
