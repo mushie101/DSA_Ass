@@ -27,6 +27,15 @@ def generate_report(inp):
         cursor.execute(sql)
         result=cursor.fetchall()
         print(result)
+    
+    elif inp==3:
+        print('======================= Report =======================',end="\n\n") 
+        print('Best Defender of the competition [Player ID, Username]')
+        sql = "SELECT Player_ID, Username FROM player WHERE Player_ID = (SELECT Player_ID FROM defender WHERE Traps_Triggered = (SELECT MAX(Traps_Triggered) FROM defender))"  
+        print("")
+        cursor.execute(sql)
+        result=cursor.fetchall()
+        print(result)           
 
 
 def report_menu():
