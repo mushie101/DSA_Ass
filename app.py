@@ -123,6 +123,35 @@ def insertion(inp):
         result=cursor.fetchall()
         print(result,end="\n\n")
 
+    elif inp==3:
+        print('======================= Insertion =======================',end="\n\n")
+        Player_ID=int(input("Enter the Player ID of the Attacker who started Defending > "))
+        
+        sql="INSERT INTO player_type VALUES('%d', 'Defender')" %(Player_ID)
+        cursor.execute(sql)
+
+        sql="INSERT INTO defender VALUES (%d,%d,%d,%d,%d)" %(Player_ID,0,0,0,0)
+        cursor.execute(sql)
+        db.commit()
+
+        print('Updated Players Table -->',end="\n\n")
+        sql="SELECT * FROM player"
+        cursor.execute(sql)
+        result=cursor.fetchall()
+        print(result,end="\n\n")
+
+        print('Updated Player Type Table -->',end="\n\n")
+        sql="SELECT * FROM player_type"
+        cursor.execute(sql)
+        result=cursor.fetchall()
+        print(result,end="\n\n")
+
+        print('Updated Defenders Table -->',end="\n\n")
+        sql="SELECT * FROM defender"
+        cursor.execute(sql)
+        result=cursor.fetchall()
+        print(result,end="\n\n")
+
     else:
         insertion_menu()
 
