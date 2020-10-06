@@ -5,6 +5,72 @@ import sys
 from dB import cursor, db
 import subprocess as sp
 
+def insertion(inp):
+    if inp==8:
+        main_menu()
+
+    elif inp==1:
+        print('======================= Insertion =======================',end="\n\n")
+        print("Enter the new players details ->")
+        new_player=[]
+        new_player.append(int(input("Player ID > ")))
+        new_player.append(input("Username > "))
+        new_player.append(int(input("Age > ")))
+        new_player.append(int(input("Team ID > ")))
+        new_player.append(int(input("Captain ID > ")))
+        print("")
+        sql="INSERT INTO player VALUES('%d','%s','%d','%d','%d')" %(new_player[0],new_player[1],new_player[2],new_player[3],new_player[4])
+        cursor.execute(sql)
+        print('=======================***********=======================',end="\n\n")
+        print("Select the type of player (1, 2 or 3) ->")
+        print("1)--> Attacker")
+        print("2)--> Defender")
+        print("3)--> Both",end="\n\n")
+        Type=int(input("Your Option > "))
+        if Type==1:
+            sql="INSERT INTO player_type VALUES (%d, 'Attacker')" %(new_player[0])
+            cursor.execute(sql)
+            db.commit()
+
+            sql="INSERT INTO attacker VALUES (%d,%d,%d,%d,%d,%d)" %(new_player[0],0,0,0,0,0)
+            cursor.execute(sql)
+            db.commit()     
+
+            print('Updated Players Table -->',end="\n\n")
+            sql="SELECT * FROM player"
+            cursor.execute(sql)
+            result=cursor.fetchall()
+            print(result,end="\n\n")  
+
+            print('Updated Attackers Table -->',end="\n\n")
+            sql="SELECT * FROM attacker"
+            cursor.execute(sql)
+            result=cursor.fetchall()
+            print(result,end="\n\n")       
+
+    else:
+        insertion_menu()
+
+    inp = input("Enter any key to go back to the main menu> ")
+    main_menu() 
+    
+
+def insertion_menu():
+    cursor.execute("USE _ctf_c")
+    sp.call('clear',shell=True)
+    print('======================= Insertion Menu =======================')
+    print('1)--> Insertion of a New Player into a Team')
+    print('2)--> Insertion of a New Team into the Competition')
+    print('3)--> Insertion of a New Defender record if an Attacker starts Defending')
+    print('4)--> Insertion of  a New Attacker record if a Defender starts Attacking')
+    print('5)--> Insertion of a New Venue if a new stadium is constructed')
+    print('6)--> Inserting the MVP entry after a match is over')
+    print('7)--> Inserting the Won By entry after the match is over')
+    print('8)--> Back to Main menu')
+    print('--------------------------------------------------------------')
+    inp = int(input("Enter Option:- "))
+    insertion(inp)
+
 def updation(inp):
     if inp==5:
         main_menu()
@@ -208,7 +274,6 @@ def deletion_menu():
 
 
 def generate_report(inp):
-    cursor.execute("USE _ctf_c")
     if inp == 6:
         main_menu()
     
@@ -254,6 +319,7 @@ def generate_report(inp):
 
 
 def report_menu():
+    cursor.execute("USE _ctf_c")
     sp.call('clear',shell=True)
     print('======================= Report Menu =======================')
     print('1)--> Number of wins for each team')
