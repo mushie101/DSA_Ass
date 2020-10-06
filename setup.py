@@ -3,7 +3,7 @@ import time
 from mysql.connector import errorcode
 from dB import cursor, db
 
-DB_NAME = '_ctf_comp_'
+DB_NAME = '_ctf_c'
 TABLES = {}
 
 TABLES['region'] = (
@@ -112,8 +112,7 @@ TABLES['attacker'] = (
     "`Avg_Attack` float(6) NOT NULL,"
     "`Highscore` int(15) NOT NULL,"
     "PRIMARY KEY (`Player_ID`),"
-    "FOREIGN KEY (`Player_ID`) REFERENCES `player` (`Player_ID`) ON DELETE CASCADE,"
-    "CHECK (Battles_No_Deaths <= Battles_Played)"
+    "FOREIGN KEY (`Player_ID`) REFERENCES `player` (`Player_ID`) ON DELETE CASCADE"
     ")ENGINE=InnoDB"
 )
 
@@ -277,5 +276,22 @@ def dump_data():
     except:
         print('-->Defender dump data already exists!')
     # ======================= Attacker Data Dump =======================
-
+    try:
+        sql = "INSERT INTO `attacker` (Player_ID,Points,Battles_Played,Battles_No_Deaths,Avg_Attack,Highscore) VALUES (%s,%s,%s,%s,%s,%s)"
+        val = [
+            ("111", "18456", "404", "48", "52", "200"),
+            ("112", "4", "3", "478", "478", "254"),
+            ("113", "11578", "240", "20", "53", "183"),
+            ("114", "8467", "125", "11", "74", "264"),
+            ("121","6456","304","25","23","156"),
+            ("122","3457","234","8","15","99"),
+            ("131","2076","87","6","26","124"),
+            ("141","786","27","1","30","67"),
+            ("142","1256","54","6","26","163")
+        ]
+        cursor.executemany(sql,val)
+        print('-->Attacker data has been dumped!')
+    except:
+        print('-->Attacker dump data already exists!')
+        
     db.commit()
