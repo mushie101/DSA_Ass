@@ -102,6 +102,26 @@ def insertion(inp):
         
         else:
             insertion(inp)
+    
+    elif inp==2:
+        print('======================= Insertion =======================',end="\n\n")
+        print("Enter the new Team's details ->")
+        new_team=[]
+        new_team.append(int(input("Team ID > ")))
+        new_team.append(input("TeamName > "))
+        new_team.append(input("Coach > "))
+        new_team.append(int(input("Region_ID > ")))
+        print("")
+
+        sql="INSERT INTO team VALUES ('%d','%s','%s','%d')" %(new_team[0],new_team[1],new_team[2],new_team[3])
+        cursor.execute(sql)
+        db.commit()
+
+        print('Updated Teams Table -->',end="\n\n")
+        sql="SELECT * FROM team"
+        cursor.execute(sql)
+        result=cursor.fetchall()
+        print(result,end="\n\n")
 
     else:
         insertion_menu()
