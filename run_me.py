@@ -495,8 +495,81 @@ def generate_report(inp):
     inp = input("Enter any key to go back to the main menu> ")
     main_menu() 
 
+def show_table():
+    cursor.execute("USE _ctf_c_t")
+    sp.call('clear',shell=True)
+    print('======================= Select Table =======================')
+    print('1)--> Region')
+    print('2)--> Team')
+    print('3)--> Venue')
+    print('4)--> Player')
+    print('5)--> Player Type')
+    print('6)--> Battle')
+    print('7)--> Attacker')
+    print('8)--> Defender')
+    print('9)--> Back to Main Menu')
+    print('-----------------------------------------------------------')
+    inp = int(input("Enter Option:- "))
+    print_table(inp)
+    
+def print_table(inp):
+    if inp == 9:
+        main_menu()
+    elif inp == 1:
+        print('======================= Region =======================',end="\n\n")
+        sql = "select * from `region`"
+        print("")
+    
+    elif inp==2:
+        print('======================= Team =======================',end="\n\n")
+        sql = "select * from `team`"
+        print("")
+    
+    elif inp==3:
+        print('======================= Venue =======================',end="\n\n") 
+        sql = "select * from `venue`"
+        print("")         
+
+    elif inp==4:
+        print('======================= Player =======================',end="\n\n") 
+        sql = "select * from `player`"
+        print("")     
+
+    elif inp==5:
+        print('======================= Player Type =======================',end="\n\n") 
+        sql = "select * from `player_type`"
+        print("")
 
 
+    elif inp==6:
+        print('======================= Battle =======================',end="\n\n") 
+        sql = "select * from `battle`"
+        print("")
+
+
+    elif inp==7:
+        print('======================= Attacker =======================',end="\n\n") 
+        sql = "select * from `attacker`"
+        print("")
+
+
+    elif inp==8:
+        print('======================= Defender =======================',end="\n\n") 
+        sql = "select * `defender`"
+        print("")
+
+
+    else:
+        report_menu()  
+    
+    cursor.execute(sql)
+    result=cursor.fetchall()
+    print(result)
+    inp = input("Enter any key to go back to the main menu> ")
+    main_menu()
+    
+    
+    
 def report_menu():
     cursor.execute("USE _ctf_c_t")
     sp.call('clear',shell=True)
@@ -526,6 +599,8 @@ def main_menu_redirection(inp):
     elif inp == 4:
         report_menu()
     elif inp == 5:
+        show_table()
+    elif inp == 6:
         logout()
     else:
         sp.call('clear',shell=True)
@@ -539,7 +614,8 @@ def main_menu():
     print('2)--> Updation')
     print('3)--> Deletion')
     print('4)--> Generate Report')
-    print('5)--> Logout')
+    print('5)--> Show Table')
+    print('6)--> Logout')
     print('------------------------------------------------------------')
     inp = int(input("Enter Option:- "))
     main_menu_redirection(inp)
